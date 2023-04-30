@@ -1,0 +1,210 @@
+{
+  "main": {
+    "id": "783e109b8233d51f",
+    "type": "split",
+    "children": [
+      {
+        "id": "383134ecb0bd88d2",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b4dd58334e99c725",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Краткое описание структуры диплома.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "b97db2e150a0dc6b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Краткое описание структуры диплома.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "bd855d8286f5b5ef",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Краткое описание структуры диплома.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "8b7ec78e44aa7634",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "6. Применение методов оптимизации на практике.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "99c3c57eedaa563d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "93854b5c1b36abb0",
+    "type": "split",
+    "children": [
+      {
+        "id": "07e8595c2aef0fac",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "64a3e2dd632b9add",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ad70b10d03782289",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "e164c21cd11fb97f",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d786e9de24e04374",
+    "type": "split",
+    "children": [
+      {
+        "id": "54ba75a9aaebd7f5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cad9c30a1814f50e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Untitled.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "5638e69355cfe78a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Untitled.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d28d430e23781de8",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "4bb11c37b2cbd2be",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "99c3c57eedaa563d",
+  "lastOpenFiles": [
+    "6. Применение методов оптимизации на практике.md",
+    "Untitled.md",
+    "Диплом.md",
+    "Краткое описание структуры диплома.md",
+    "5. Методы оптимизации React.md",
+    "3. Обзор основных хуков для функциональных компонентов в React**.md",
+    "4. Проблемы производительности в высоконагруженных интерфейсах.md",
+    "2. Обзор React и его методов отрисовки.md",
+    "1. Введение.md"
+  ]
+}
