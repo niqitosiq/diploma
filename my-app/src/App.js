@@ -8,12 +8,12 @@ import SearchUser from './components/SearchUser';
 import './App.css';
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [fetchingInterval, setFetchingInterval] = useState(null); // оптимизация с ref
+  const [users, setUsers] = useState([]);
 
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [fetchingInterval, setFetchingInterval] = useState(null);
   const fetchUsers = async () => {
     const response = await axios.get('http://localhost:3001/users');
     setUsers(response.data);
@@ -51,10 +51,10 @@ function App() {
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <Locations
+      {/* <Locations
         users={filteredUsers}
         onMarkerClick={(selectedUser) => setSelectedUser(selectedUser)}
-      />
+      /> */}
 
       <UserList
         users={filteredUsers}

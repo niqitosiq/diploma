@@ -11,14 +11,6 @@ function UserDetails({ user, onClose }) {
           Закрыть
         </button>
         <h2>{user.name}</h2>
-        <p>Email: {user.email}</p>
-        <p>Username: {user.username}</p>
-        <p>Phone: {user.phone}</p>
-        <p>Website: {user.website}</p>
-        <p>
-          Address: {user.address.street}, {user.address.suite}, {user.address.city},{' '}
-          {user.address.zipcode}
-        </p>
       </div>
 
       <UserActivities activities={user.activities} />

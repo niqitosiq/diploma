@@ -6,7 +6,6 @@ import icon from './marker.svg';
 
 function Locations({ users, onMarkerClick }) {
   const customIcon = L.icon({
-    // тут можно тестить мемоизацию
     iconUrl: icon,
     iconSize: [30, 30],
   });

@@ -35,9 +35,26 @@ app.use(
   }),
 );
 
+const users = [
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+  chance.n(generateUser, 1000),
+];
+
+function randomIntFromInterval(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 app.get('/users', (req, res) => {
-  const users = chance.n(generateUser, 1000);
-  res.json(users);
+  const usersIndex = randomIntFromInterval(0, 9);
+  res.json(users[usersIndex]);
 });
 
 app.listen(3001, () => {

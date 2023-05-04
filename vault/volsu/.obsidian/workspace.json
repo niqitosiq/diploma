@@ -56,19 +56,41 @@
             }
           },
           {
-            "id": "99c3c57eedaa563d",
+            "id": "d982ac13777f5a45",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Untitled.md",
+                "file": "6. Применение методов оптимизации на практике.md",
                 "mode": "source",
                 "source": false
               }
             }
+          },
+          {
+            "id": "2bc01e042b9ba996",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled 1.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "87e55d5b15401792",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.2.7"
+              }
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "vertical"
@@ -113,6 +135,14 @@
               "type": "starred",
               "state": {}
             }
+          },
+          {
+            "id": "9e430bb2561ace68",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -134,7 +164,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Untitled.md",
+                "file": "Untitled 1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +181,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Untitled.md",
+                "file": "Untitled 1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -174,7 +204,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Untitled.md"
+                "file": "Untitled 1.md"
               }
             }
           }
@@ -195,16 +225,28 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "99c3c57eedaa563d",
+  "active": "87e55d5b15401792",
   "lastOpenFiles": [
-    "6. Применение методов оптимизации на практике.md",
     "Untitled.md",
-    "Диплом.md",
-    "Краткое описание структуры диплома.md",
     "5. Методы оптимизации React.md",
-    "3. Обзор основных хуков для функциональных компонентов в React**.md",
-    "4. Проблемы производительности в высоконагруженных интерфейсах.md",
+    "Untitled 1.md",
+    "6. Применение методов оптимизации на практике.md",
     "2. Обзор React и его методов отрисовки.md",
+    "3. Обзор основных хуков для функциональных компонентов в React**.md",
+    "Краткое описание структуры диплома.md",
+    "Скрины компонентов.md",
+    "Pasted image 20230430210543.png",
+    "Pasted image 20230430210506.png",
+    "Pasted image 20230430210338.png",
+    "Pasted image 20230430210315.png",
+    "Pasted image 20230430210304.png",
+    "Pasted image 20230430210242.png",
+    "Pasted image 20230430210104.png",
+    "Pasted image 20230430210102.png",
+    "Pasted image 20230430205825.png",
+    "Pasted image 20230430205803.png",
+    "Диплом.md",
+    "4. Проблемы производительности в высоконагруженных интерфейсах.md",
     "1. Введение.md"
   ]
 }
