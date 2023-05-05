@@ -2,7 +2,7 @@ import { log_file, makePerformaceProfile } from './MemoryTest.js';
 
 const allActionsUserStory = async (page) => {
   const t1 = await makePerformaceProfile(page);
-  await page.waitForTimeout(10000);
+
   await page.waitForSelector('.leaflet-marker-icon:nth-child(25)');
   const marker25 = await page.$('.leaflet-marker-icon:nth-child(25)');
   await marker25.click();
