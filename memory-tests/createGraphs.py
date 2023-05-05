@@ -4,6 +4,9 @@ import sys
 import matplotlib.pyplot as plt
 import os 
 
+from dominate import document
+from dominate.tags import *
+
 
 def create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName):
     before_optimization_scores = before_optimization_data['lhrResults']['lhrScores']
@@ -180,6 +183,23 @@ def main():
 
     create_timings_bar_chart(before_optimization_data, after_optimization_data, directoryName)
     create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName)
+
+
+    codeComparingLink = 'https://github.com/niqitosiq/diploma/compare/' +sys.argv[1] + '..' + sys.argv[2];
+
+    with document(title='Photos') as doc:
+        h1('Graphics')
+        a('Code Comparing', href=codeComparingLink)
+        div(img(src='./heap_chart.jpeg'), _class='photo')
+        div(img(src='./nodes_chart.jpeg'), _class='photo')
+        div(img(src='./lighthouse_chart.jpeg'), _class='photo')
+        div(img(src='./task_duration_chart.jpeg'), _class='photo')
+        div(img(src='./timings_chart.jpeg'), _class='photo')
+
+
+    with open(directoryName + 'gallery.html', 'w') as f:
+        f.write(doc.render())
+
 
 if __name__ == '__main__':
     main()

@@ -18,36 +18,6 @@ export const log_file = (fileName) =>
 
 const url = 'http://localhost:3000';
 
-function computeAverage(arrays, keyPath) {
-  let total = 0;
-  let count = 0;
-
-  for (const array of arrays) {
-    let value = array;
-    for (const key of keyPath) {
-      value = value[key];
-      if (!value) break;
-    }
-
-    if (value && typeof value === 'number') {
-      total += value;
-      count++;
-    }
-  }
-
-  return count !== 0 ? total / count : null;
-}
-
-function computeAverageForKeys(keys, results, keyPath) {
-  const result = {};
-
-  for (const key of keys) {
-    result[key] = computeAverage(results, keyPath.concat([key]));
-  }
-
-  return result;
-}
-
 export const makePerformaceProfile = async (page, title) => {
   const profilePage = puppeteerProfile(page);
 
@@ -74,58 +44,68 @@ const makeLHRScores = async (page) => {
   return { lhrScores };
 };
 
+const sumNestedFields = (first, second) => {
+  return Object.keys(first).reduce((acc, key) => {
+    acc[key] = first[key] + second[key];
+    return acc;
+  }, {});
+};
+
+const divisionNestedFields = (first, divider) => {
+  return Object.keys(first).reduce((acc, key) => {
+    acc[key] = first[key] / divider;
+    return acc;
+  }, {});
+};
+
 (async () => {
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch({ headless: false });
+
+  const results = [];
+
   const page = await browser.newPage();
+
+  for (let i = 0; i < 1; i++) {
+    await page.goto(url, {
+      waitUntil: 'networkidle0',
+    });
+    results.push(await allActionsUserStory(page));
+  }
+
+  const averageStoryResults = results.reduce(
+    ({ totalResult, count }, storyResult, index) => {
+      if (index === results.length - 1) {
+        return totalResult.map((totalStoryStep) => ({
+          ...totalStoryStep,
+          heap: totalStoryStep.heap / count,
+          timings: divisionNestedFields(totalStoryStep.timings, count),
+          metrics: divisionNestedFields(totalStoryStep.metrics, count),
+        }));
+      }
+
+      const summedResults = totalResult.map((totalStoryStep, storyStepIndex) => {
+        const storyStep = storyResult[storyStepIndex];
+        return {
+          ...totalStoryStep,
+          heap: totalStoryStep.heap + storyStep.heap,
+          timings: sumNestedFields(totalStoryStep.timings, storyStep.timings),
+          metrics: sumNestedFields(totalStoryStep.metrics, storyStep.metrics),
+        };
+      });
+
+      return { totalResult: summedResults, count: count + 1 };
+    },
+    { totalResult: results[0], count: 1 },
+  );
+
+  await page.goto(url, {
+    waitUntil: 'networkidle0',
+  });
 
   browser.on('targetchanged', async (target) => {
     if (page && page.url() === url) {
       await page.addStyleTag({ content: '* {color: red}' });
     }
-  });
-
-  const results = [];
-  await page.goto(url, {
-    waitUntil: 'networkidle0',
-  });
-
-  results.push(await allActionsUserStory(page));
-  await page.goto(url, {
-    waitUntil: 'networkidle0',
-  });
-  results.push(await allActionsUserStory(page));
-  await page.goto(url, {
-    waitUntil: 'networkidle0',
-  });
-  results.push(await allActionsUserStory(page));
-  await page.goto(url, {
-    waitUntil: 'networkidle0',
-  });
-  results.push(await allActionsUserStory(page));
-  await page.goto(url, {
-    waitUntil: 'networkidle0',
-  });
-  results.push(await allActionsUserStory(page));
-
-  const averageStoryResults = results.map((result) => {
-    const resultNew = {
-      ...result,
-    };
-    const timingsKeys = Object.keys(result[0].timings);
-    const metricsKeys = ['heap'].concat(Object.keys(result[0].metrics));
-
-    resultNew.timings = computeAverageForKeys(timingsKeys, result, ['timings']);
-
-    for (const key of metricsKeys) {
-      if (key === 'heap') {
-        resultNew[key] = computeAverage(result, [key]);
-      } else {
-        if (!resultNew.metrics) resultNew.metrics = {};
-        resultNew.metrics[key] = computeAverage(result, ['metrics', key]);
-      }
-    }
-
-    return resultNew;
   });
 
   const lhrResults = await makeLHRScores(page);
