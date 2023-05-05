@@ -3,6 +3,7 @@ import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 import os 
+from subprocess import call
 
 from dominate import document
 from dominate.tags import *
@@ -164,7 +165,10 @@ def main():
         print("Usage: python3 createGraphs.py <before_optimization_file> <after_optimization_file>")
         return
     
-    directoryName = './graphs/' + sys.argv[1] + '-' + sys.argv[2] + '/'
+    firstCommitHash = sys.argv[1][0:7]
+    secondCommitHash = sys.argv[2][0:7]
+
+    directoryName = './graphs/' + firstCommitHash  + '-' + secondCommitHash + '/'
 
     isExist = os.path.exists(directoryName)
 
@@ -172,8 +176,8 @@ def main():
       os.makedirs(directoryName) 
       print("The new directory is created!")
 
-    before_optimization_file = './results/' + sys.argv[1] + '.json'
-    after_optimization_file = './results/' + sys.argv[2] + '.json'
+    before_optimization_file = './results/' + firstCommitHash + '.json'
+    after_optimization_file = './results/' + secondCommitHash + '.json'
 
     with open(before_optimization_file, 'r') as f:
         before_optimization_data = json.load(f)
@@ -185,7 +189,7 @@ def main():
     create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName)
 
 
-    codeComparingLink = 'https://github.com/niqitosiq/diploma/compare/' +sys.argv[1] + '..' + sys.argv[2];
+    codeComparingLink = 'https://github.com/niqitosiq/diploma/compare/' + firstCommitHash + '..' + secondCommitHash
 
     with document(title='Photos') as doc:
         h1('Graphics')
@@ -199,6 +203,8 @@ def main():
 
     with open(directoryName + 'gallery.html', 'w') as f:
         f.write(doc.render())
+
+    call(["open", directoryName])
 
 
 if __name__ == '__main__':
