@@ -5,12 +5,10 @@ const StatisticColumn = ({ size, label, maximumSize }) => {
     return size / maximumSize;
   }, [size, maximumSize]);
 
-  const backgroundColor = useMemo(() => {
-    if (relativeSize > 0.3) return 'yellow';
-    if (relativeSize > 0.6) return 'red';
+  let backgroundColor = 'green';
 
-    return 'green';
-  }, [relativeSize]);
+  if (relativeSize > 0.3) backgroundColor = 'yellow';
+  if (relativeSize > 0.6) backgroundColor = 'red';
 
   return (
     <div
