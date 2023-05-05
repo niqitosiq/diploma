@@ -59,7 +59,7 @@ const divisionNestedFields = (first, divider) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: 'new' });
 
   const results = [];
 
