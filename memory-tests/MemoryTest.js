@@ -64,7 +64,8 @@ const makeLHRScores = async (page) => {
   let storyResults;
   while (!storyResults) {
     try {
-      storyResults = await allActionsUserStory(page);
+      const results = await allActionsUserStory(page);
+      storyResults = results ? results : null;
     } catch (e) {
       console.log(e);
     }

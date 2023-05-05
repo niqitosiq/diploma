@@ -39,10 +39,6 @@ function App() {
     return stopFetchingUsers;
   }, []);
 
-  const filteredUsers = searchQuery.length
-    ? users.filter((user) => user.name.includes(searchQuery))
-    : users;
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -51,17 +47,11 @@ function App() {
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <Locations
-        users={filteredUsers}
-        onMarkerClick={(selectedUser) => setSelectedUser(selectedUser)}
-      />
+      <Locations users={users} onMarkerClick={(selectedUser) => setSelectedUser(selectedUser)} />
 
-      <UserList
-        users={filteredUsers}
-        onUserSelect={(selectedUser) => setSelectedUser(selectedUser)}
-      />
+      <UserList users={users} onUserSelect={(selectedUser) => setSelectedUser(selectedUser)} />
 
-      <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} />
+      {/* <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} /> */}
 
       {selectedUser && <UserDetails user={selectedUser} onClose={() => setSelectedUser(null)} />}
     </div>
