@@ -70,9 +70,11 @@ const makeLHRScores = async (page) => {
 
   const lhrResults = await makeLHRScores(page);
 
-  log_file(revision.slice(0, 6) + '.json').write(
+  log_file(revision.slice(0, 7) + '.json').write(
     JSON.stringify({ revision, storyResults, lhrResults }),
   );
+
+  console.log(revision.slice(0, 7));
 
   await browser.close();
 })();

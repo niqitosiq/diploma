@@ -1,16 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 const StatisticColumn = ({ size, label, maximumSize }) => {
-  const relativeSize = useMemo(() => {
-    return size / maximumSize;
-  }, [size, maximumSize]);
+  const relativeSize = size / maximumSize;
+  let backgroundColor = 'green';
 
-  const backgroundColor = useMemo(() => {
-    if (relativeSize > 0.3) return 'yellow';
-    if (relativeSize > 0.6) return 'red';
-
-    return 'green';
-  }, [relativeSize]);
+  if (relativeSize > 0.3) backgroundColor = 'yellow';
+  if (relativeSize > 0.6) backgroundColor = 'red';
 
   return (
     <div
