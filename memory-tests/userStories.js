@@ -37,9 +37,7 @@ const allActionsUserStory = async (page) => {
 
   const t5 = await makePerformaceProfile(page);
 
-  log_file.write(JSON.stringify({ t1, t2, t3, t4, t5 }));
-
-  await page.waitForTimeout(10000);
+  return [t1, t2, t3, t4, t5];
 };
 
 export { allActionsUserStory };
