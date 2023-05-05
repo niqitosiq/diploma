@@ -140,7 +140,7 @@ def main():
         print("Usage: python3 createGraphs.py <before_optimization_file> <after_optimization_file>")
         return
     
-    directoryName = './' + sys.argv[1] + '-' + sys.argv[2] + '/'
+    directoryName = './graphs/' + sys.argv[1] + '-' + sys.argv[2] + '/'
 
     isExist = os.path.exists(directoryName)
 

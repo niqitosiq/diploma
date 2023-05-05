@@ -22,7 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!react-leaflet)/\"",
     "eject": "react-scripts eject",
-    "memoryTest": "node ../memory-tests/MemoryTest.js"
+    "memoryTest": "node ../memory-tests/MemoryTest.js $(git rev-parse HEAD)",
+    "createGraphs": "python3 ../memory-tests/createGraphs.py"
   },
   "eslintConfig": {
     "extends": [

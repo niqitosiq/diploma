@@ -7,10 +7,11 @@ import { fileURLToPath } from 'url';
 import process from 'child_process';
 import currentProcess from 'node:process';
 import { allActionsUserStory } from './userStories.js';
+import { log } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const gitBranchName = currentProcess.argv[2];
+const revision = currentProcess.argv[2];
 
 export const log_file = (fileName) =>
   fs.createWriteStream(__dirname + `/results/${fileName}`, { flags: 'w' });
@@ -44,8 +45,6 @@ const makeLHRScores = async (page) => {
 };
 
 (async () => {
-  if (gitBranchName) await process.execSync(`git checkout ${gitBranchName}`);
-
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
@@ -59,8 +58,6 @@ const makeLHRScores = async (page) => {
     waitUntil: 'networkidle0',
   });
 
-  const revision = process.execSync('git rev-parse HEAD').toString().trim();
-
   let storyResults;
   while (!storyResults) {
     try {
@@ -73,7 +70,7 @@ const makeLHRScores = async (page) => {
 
   const lhrResults = await makeLHRScores(page);
 
-  log_file(revision.slice(0, 5) + '.json').write(
+  log_file(revision.slice(0, 6) + '.json').write(
     JSON.stringify({ revision, storyResults, lhrResults }),
   );
 
