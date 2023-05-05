@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "lighthouse": "^10.2.0",
+    "pandas-js": "^0.2.4",
     "puppeteer": "^19.11.1",
     "puppeteer-profile": "^1.0.5"
   }

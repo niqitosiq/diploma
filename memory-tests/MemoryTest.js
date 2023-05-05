@@ -17,7 +17,7 @@ export const log_file = (fileName) =>
 
 const url = 'http://localhost:3000';
 
-export const makePerformaceProfile = async (page) => {
+export const makePerformaceProfile = async (page, title) => {
   const profilePage = puppeteerProfile(page);
 
   const timings = await profilePage.timings();
@@ -25,6 +25,7 @@ export const makePerformaceProfile = async (page) => {
   const metrics = await profilePage.runtimeMetrics();
 
   return {
+    title,
     timings,
     heap,
     metrics,
@@ -43,7 +44,7 @@ const makeLHRScores = async (page) => {
 };
 
 (async () => {
-  await process.execSync(`git checkout ${gitBranchName}`);
+  if (gitBranchName) await process.execSync(`git checkout ${gitBranchName}`);
 
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
