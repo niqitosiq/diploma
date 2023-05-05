@@ -5,12 +5,15 @@ import puppeteerProfile from './perfTests.js';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import process from 'child_process';
+import currentProcess from 'node:process';
 import { allActionsUserStory } from './userStories.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const gitBranchName = currentProcess.argv[2];
 
-export const log_file = fs.createWriteStream(__dirname + '/debug.log', { flags: 'w' });
+export const log_file = (fileName) =>
+  fs.createWriteStream(__dirname + `/results/${fileName}`, { flags: 'w' });
 
 const url = 'http://localhost:3000';
 
@@ -40,7 +43,9 @@ const makeLHRScores = async (page) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: 'new' });
+  await process.execSync(`git checkout ${gitBranchName}`);
+
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
   browser.on('targetchanged', async (target) => {
@@ -51,13 +56,15 @@ const makeLHRScores = async (page) => {
 
   await page.goto(url);
 
-  const lhrResults = await makeLHRScores(page);
-
   const revision = process.execSync('git rev-parse HEAD').toString().trim();
 
   const storyResults = await allActionsUserStory(page);
 
-  log_file.write(JSON.stringify({ revision, storyResults, lhrResults }));
+  const lhrResults = await makeLHRScores(page);
+
+  log_file(revision.slice(0, 5) + '.json').write(
+    JSON.stringify({ revision, storyResults, lhrResults }),
+  );
 
   await browser.close();
 })();
