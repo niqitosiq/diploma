@@ -61,7 +61,7 @@ function App() {
         onUserSelect={(selectedUser) => setSelectedUser(selectedUser)}
       />
 
-      {/* <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} /> */}
+      <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} />
 
       {selectedUser && <UserDetails user={selectedUser} onClose={() => setSelectedUser(null)} />}
     </div>
