@@ -37,9 +37,9 @@ def create_lighthouse_chart(before_optimization_data, after_optimization_data, d
 
 
 def create_timings_bar_chart(before_optimization_data, after_optimization_data, directoryName):
-    before_optimization_heap = [result['heap'] for result in before_optimization_data['storyResults']]
-    after_optimization_heap = [result['heap'] for result in after_optimization_data['storyResults']]
-    before_optimization_titles = [result.get('title', f"Index {i}") for i, result in enumerate(before_optimization_data['storyResults'])]
+    before_optimization_heap = [result['heap'] for result in before_optimization_data['averageStoryResults']]
+    after_optimization_heap = [result['heap'] for result in after_optimization_data['averageStoryResults']]
+    before_optimization_titles = [result.get('title', f"Index {i}") for i, result in enumerate(before_optimization_data['averageStoryResults'])]
 
     n = min(len(before_optimization_heap), len(after_optimization_heap))
     before_optimization_heap = before_optimization_heap[:n]
@@ -47,8 +47,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     x_heap = range(n)
     titles = before_optimization_titles[:n]
 
-    before_optimization_timings = [result['timings'] for result in before_optimization_data['storyResults']]
-    after_optimization_timings = [result['timings'] for result in after_optimization_data['storyResults']]
+    before_optimization_timings = [result['timings'] for result in before_optimization_data['averageStoryResults']]
+    after_optimization_timings = [result['timings'] for result in after_optimization_data['averageStoryResults']]
     
 
     before_optimization_df = pd.DataFrame(before_optimization_timings)
@@ -104,8 +104,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
 
 
 
-    before_optimization_nodes = [result['metrics']['Nodes'] for result in before_optimization_data['storyResults']]
-    after_optimization_nodes = [result['metrics']['Nodes'] for result in after_optimization_data['storyResults']]
+    before_optimization_nodes = [result['metrics']['Nodes'] for result in before_optimization_data['averageStoryResults']]
+    after_optimization_nodes = [result['metrics']['Nodes'] for result in after_optimization_data['averageStoryResults']]
 
     n = min(len(before_optimization_nodes), len(after_optimization_nodes))
     before_optimization_nodes = before_optimization_nodes[:n]
@@ -129,8 +129,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     fig3.tight_layout()
     plt.savefig(directoryName + 'nodes_chart.jpeg')
 
-    before_optimization_task_duration = [result['metrics']['TaskDuration'] for result in before_optimization_data['storyResults']]
-    after_optimization_task_duration = [result['metrics']['TaskDuration'] for result in after_optimization_data['storyResults']]
+    before_optimization_task_duration = [result['metrics']['TaskDuration'] for result in before_optimization_data['averageStoryResults']]
+    after_optimization_task_duration = [result['metrics']['TaskDuration'] for result in after_optimization_data['averageStoryResults']]
 
     n = min(len(before_optimization_task_duration), len(after_optimization_task_duration))
     before_optimization_task_duration = before_optimization_task_duration[:n]

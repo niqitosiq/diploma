@@ -25,7 +25,7 @@ function App() {
     setFetchingInterval(
       setInterval(() => {
         fetchUsers();
-      }, 15000),
+      }, 40000),
     );
   };
 
@@ -67,3 +67,5 @@ function App() {
     </div>
   );
 }
+
+export default App;

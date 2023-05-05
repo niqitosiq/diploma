@@ -23,20 +23,20 @@ const allActionsUserStory = async (page) => {
   console.log(`marker68 clicked`);
 
   const t3 = await makePerformaceProfile(page, 'marker2 clicked');
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(1000);
 
   await page.waitForSelector('.search-user input');
   await page.focus('.search-user input');
   page.keyboard.type('a');
   await page.waitForTimeout(300);
   page.keyboard.type('n');
-  await page.waitForTimeout(2500);
+  await page.waitForTimeout(1000);
 
   const t4 = await makePerformaceProfile(page, 'input filled');
 
   await page.waitForSelector('.user-list li:nth-child(1)');
   const userLi = await page.$('.user-list li:nth-child(1)');
-  if (userLi) userLi.click();
+  userLi.click();
 
   const t5 = await makePerformaceProfile(page, 'List selected');
 
