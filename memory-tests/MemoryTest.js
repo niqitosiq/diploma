@@ -55,11 +55,20 @@ const makeLHRScores = async (page) => {
     }
   });
 
-  await page.goto(url);
+  await page.goto(url, {
+    waitUntil: 'networkidle0',
+  });
 
   const revision = process.execSync('git rev-parse HEAD').toString().trim();
 
-  const storyResults = await allActionsUserStory(page);
+  let storyResults;
+  while (!storyResults) {
+    try {
+      storyResults = await allActionsUserStory(page);
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const lhrResults = await makeLHRScores(page);
 

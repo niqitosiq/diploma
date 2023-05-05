@@ -27,8 +27,8 @@ const allActionsUserStory = async (page) => {
 
   await page.waitForSelector('.search-user input');
   await page.focus('.search-user input');
-  page.keyboard.type('i');
-  await page.waitForTimeout(2500);
+  page.keyboard.type('a');
+  await page.waitForTimeout(300);
   page.keyboard.type('n');
   await page.waitForTimeout(2500);
 
@@ -36,7 +36,7 @@ const allActionsUserStory = async (page) => {
 
   await page.waitForSelector('.user-list li:nth-child(1)');
   const userLi = await page.$('.user-list li:nth-child(1)');
-  userLi.click();
+  if (userLi) userLi.click();
 
   const t5 = await makePerformaceProfile(page, 'List selected');
 
