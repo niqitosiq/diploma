@@ -21,6 +21,10 @@ def create_lighthouse_chart(before_optimization_data, after_optimization_data, d
     ax.bar([i - width / 2 for i in x_scores], before_scores, width, label='До оптимизации')
     ax.bar([i + width / 2 for i in x_scores], after_scores, width, label='После оптимизации')
 
+    for i, (before, after) in enumerate(zip(before_scores, after_scores)):
+        percent_change = ((after - before) / before) * 100
+        ax.annotate(f'{percent_change:.2f}%', xy=(i, max(before, after) + 0.05), ha='center', fontsize=8)
+
     ax.set_title('Сравнение оценок Lighthouse до и после оптимизации')
     ax.set_xticks(x_scores)
     ax.set_xticklabels(categories)
@@ -69,6 +73,10 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     ax.bar([i - width / 2 for i in x], before_optimization_means, width, label='До оптимизации')
     ax.bar([i + width / 2 for i in x], after_optimization_means, width, label='После оптимизации')
 
+    for i, (before, after) in enumerate(zip(before_optimization_means, after_optimization_means)):
+        percent_change = ((after - before) / before) * 100
+        ax.annotate(f'{percent_change:.2f}%', xy=(i, max(before, after) + 0.05), ha='center', fontsize=8)
+
     ax.set_title('Сравнение времени загрузки до и после оптимизации')
     ax.set_xticks(x)
     ax.set_xticklabels(metrics)
@@ -81,6 +89,10 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     ax2.bar([i - width / 2 for i in x_heap], before_optimization_heap, width, label='До оптимизации')
     ax2.bar([i + width / 2 for i in x_heap], after_optimization_heap, width, label='После оптимизации')
 
+    for i, (before, after) in enumerate(zip(before_optimization_heap, after_optimization_heap)):
+        percent_change = ((after - before) / before) * 100
+        ax2.annotate(f'{percent_change:.2f}%', xy=(i, max(before, after) + 0.05), ha='center', fontsize=8)
+
     ax2.set_title('Сравнение использования памяти до и после оптимизации')
     ax2.set_xticks(x_heap)
     ax2.set_xticklabels(titles)
@@ -89,6 +101,7 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
 
     fig2.tight_layout()
     plt.savefig(directoryName + 'heap_chart.jpeg')
+
 
 
     before_optimization_nodes = [result['metrics']['Nodes'] for result in before_optimization_data['storyResults']]
@@ -102,6 +115,10 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     fig3, ax3 = plt.subplots()
     ax3.bar([i - width / 2 for i in x_nodes], before_optimization_nodes, width, label='До оптимизации')
     ax3.bar([i + width / 2 for i in x_nodes], after_optimization_nodes, width, label='После оптимизации')
+
+    for i, (before, after) in enumerate(zip(before_optimization_nodes, after_optimization_nodes)):
+        percent_change = ((after - before) / before) * 100
+        ax3.annotate(f'{percent_change:.2f}%', xy=(i, max(before, after) + 0.05), ha='center', fontsize=8)
 
     ax3.set_title('Сравнение количества элементов на странице до и после оптимизации')
     ax3.set_xticks(x_nodes)
@@ -123,6 +140,10 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     fig4, ax4 = plt.subplots()
     ax4.bar([i - width / 2 for i in x_task_duration], before_optimization_task_duration, width, label='До оптимизации')
     ax4.bar([i + width / 2 for i in x_task_duration], after_optimization_task_duration, width, label='После оптимизации')
+
+    for i, (before, after) in enumerate(zip(before_optimization_task_duration, after_optimization_task_duration)):
+        percent_change = ((after - before) / before) * 100
+        ax4.annotate(f'{percent_change:.2f}%', xy=(i, max(before, after) + 0.05), ha='center', fontsize=8)
 
     ax4.set_title('Сравнение количества выполненных операций до и после оптимизации')
     ax4.set_xticks(x_task_duration)
@@ -148,8 +169,8 @@ def main():
       os.makedirs(directoryName) 
       print("The new directory is created!")
 
-    before_optimization_file = '../results/' + sys.argv[1] + '.json'
-    after_optimization_file = '../results/' + sys.argv[2] + '.json'
+    before_optimization_file = './results/' + sys.argv[1] + '.json'
+    after_optimization_file = './results/' + sys.argv[2] + '.json'
 
     with open(before_optimization_file, 'r') as f:
         before_optimization_data = json.load(f)
