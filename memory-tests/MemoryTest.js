@@ -51,15 +51,13 @@ const makeLHRScores = async (page) => {
 
   await page.goto(url);
 
-  // const revision = process.execSync('git rev-parse HEAD').toString().trim();
+  const lhrResults = await makeLHRScores(page);
 
-  // const initialPerformanceTest = await makePerformaceProfile(page);
-  // const LHRScores = await makeLHRScores(page);
+  const revision = process.execSync('git rev-parse HEAD').toString().trim();
 
-  await allActionsUserStory(page);
-  // log_file.write(
-  //   JSON.stringify({ revision, lhrScores, timings, heap, metrics }, null, 4),
-  // );
+  const storyResults = await allActionsUserStory(page);
+
+  log_file.write(JSON.stringify({ revision, storyResults, lhrResults }));
 
   await browser.close();
 })();
