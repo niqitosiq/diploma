@@ -21,8 +21,8 @@ const generateUser = () => {
     address: chance.address(),
     age: chance.age(),
     coordinates: {
-      lat: chance.latitude(),
-      lng: chance.longitude(),
+      lat: chance.latitude({ min: 28.0, max: 35.9 }),
+      lng: chance.longitude({ min: -105, max: -70 }),
     },
     activities,
   };
