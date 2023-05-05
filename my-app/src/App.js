@@ -47,23 +47,20 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  const closeUserDetails = () => setSelectedUser(null);
+  const updateSelectedUser = (selectedUser) => setSelectedUser(selectedUser);
+
   return (
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <Locations
-        users={filteredUsers}
-        onMarkerClick={(selectedUser) => setSelectedUser(selectedUser)}
-      />
+      <Locations users={filteredUsers} onMarkerClick={updateSelectedUser} />
 
-      <UserList
-        users={filteredUsers}
-        onUserSelect={(selectedUser) => setSelectedUser(selectedUser)}
-      />
+      <UserList users={filteredUsers} onUserSelect={updateSelectedUser} />
 
       <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} />
 
-      {selectedUser && <UserDetails user={selectedUser} onClose={() => setSelectedUser(null)} />}
+      {selectedUser && <UserDetails user={selectedUser} onClose={closeUserDetails} />}
     </div>
   );
 }
