@@ -1,9 +1,12 @@
 {
   "name": "memory-tests",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^19.11.1"
+    "lighthouse": "^10.2.0",
+    "puppeteer": "^19.11.1",
+    "puppeteer-profile": "^1.0.5"
   }
 }

@@ -51,10 +51,10 @@ function App() {
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      {/* <Locations
+      <Locations
         users={filteredUsers}
         onMarkerClick={(selectedUser) => setSelectedUser(selectedUser)}
-      /> */}
+      />
 
       <UserList
         users={filteredUsers}

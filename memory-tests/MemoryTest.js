@@ -1,30 +1,65 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
+import lighthouse from 'lighthouse';
+import path from 'path';
+import puppeteerProfile from './perfTests.js';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import process from 'child_process';
+import { allActionsUserStory } from './userStories.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export const log_file = fs.createWriteStream(__dirname + '/debug.log', { flags: 'w' });
+
+const url = 'http://localhost:3000';
+
+export const makePerformaceProfile = async (page) => {
+  const profilePage = puppeteerProfile(page);
+
+  const timings = await profilePage.timings();
+  const heap = await profilePage.profileHeap();
+  const metrics = await profilePage.runtimeMetrics();
+
+  return {
+    timings,
+    heap,
+    metrics,
+  };
+};
+
+const makeLHRScores = async (page) => {
+  const { lhr } = await lighthouse(url, undefined, undefined, page);
+
+  const lhrScores = Object.entries(lhr.categories).reduce((acc, [key, value]) => {
+    acc[key] = value.score;
+    return acc;
+  }, {});
+
+  return { lhrScores };
+};
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
 
-  await page.goto('http://localhost:3000');
+  browser.on('targetchanged', async (target) => {
+    if (page && page.url() === url) {
+      await page.addStyleTag({ content: '* {color: red}' });
+    }
+  });
 
-  await page.tracing.start({ path: 'trace.json', categories: ['devtools.timeline'] });
+  await page.goto(url);
 
-  await page.tracing.stop();
+  // const revision = process.execSync('git rev-parse HEAD').toString().trim();
 
-  const performanceTiming = JSON.parse(
-    await page.evaluate(() => JSON.stringify(window.performance.timing)),
-  );
-  const timeToFirstByte = performanceTiming.responseStart - performanceTiming.navigationStart;
-  const domContentLoaded =
-    performanceTiming.domContentLoadedEventEnd - performanceTiming.navigationStart;
-  const pageLoadTime = performanceTiming.loadEventEnd - performanceTiming.navigationStart;
+  // const initialPerformanceTest = await makePerformaceProfile(page);
+  // const LHRScores = await makeLHRScores(page);
 
-  console.log('Time to First Byte:', timeToFirstByte);
-  console.log('DOM Content Loaded:', domContentLoaded);
-  console.log('Page Load Time:', pageLoadTime);
-
-  const memory = await page.metrics();
-  console.log(memory);
-  console.log('Memory Usage:', memory.JSHeapUsedSize / 1024 / 1024, 'MB');
+  await allActionsUserStory(page);
+  // log_file.write(
+  //   JSON.stringify({ revision, lhrScores, timings, heap, metrics }, null, 4),
+  // );
 
   await browser.close();
 })();
