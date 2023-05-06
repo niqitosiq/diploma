@@ -30,7 +30,7 @@ const allActionsUserStory = async (page) => {
   page.keyboard.type('a');
   await page.waitForTimeout(300);
   page.keyboard.type('n');
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(300);
   page.keyboard.type('i');
   await page.waitForTimeout(1000);
 
