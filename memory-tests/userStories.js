@@ -1,4 +1,4 @@
-import { log_file, makePerformaceProfile } from './MemoryTest.js';
+import { makePerformaceProfile } from './MemoryTest.js';
 
 const allActionsUserStory = async (page) => {
   const t1 = await makePerformaceProfile(page, 'start');

@@ -2,14 +2,13 @@ import puppeteer from 'puppeteer';
 import lighthouse from 'lighthouse';
 import path from 'path';
 import puppeteerProfile from './perfTests.js';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
-import currentProcess from 'node:process';
 import { allActionsUserStory } from './userStories.js';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const revision = currentProcess.argv[2];
+const revision = process.argv[2];
 
 export const log_file = (fileName) =>
   fs.createWriteStream(__dirname + `/results/${fileName}`, { flags: 'w' });
@@ -108,11 +107,12 @@ const divisionNestedFields = (first, divider) => {
 
   const lhrResults = await makeLHRScores(page);
 
-  log_file(revision.slice(0, 7) + '.json').write(
+  const revisionHash = revision.slice(0, 7);
+  log_file(revisionHash + '.json').write(
     JSON.stringify({ revision, averageStoryResults, lhrResults }),
   );
 
-  console.log(revision.slice(0, 7));
+  console.log(revisionHash);
 
   await browser.close();
 })();
