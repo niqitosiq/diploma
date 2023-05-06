@@ -27,6 +27,6 @@ const generateUser = () => {
   };
 };
 
-const users = chance.n(generateUser, 2000);
+const users = chance.n(generateUser, 500);
 
 fs.writeFile('./users.json', JSON.stringify(users), 'utf8', () => {});

@@ -13,8 +13,8 @@ echo "starting first memory test"
 node ../memory-tests/MemoryTest.js $firstCommit
 echo " kill $SERVE_PID $(kill $SERVE_PID)"
 echo " kill $BACKEND_PID $(kill $BACKEND_PID)"
-sleep 10
 git checkout $2;
+sleep 10
 secondCommit=$(git rev-parse HEAD)
 node ../mock-backend/index.js &
   BACKEND_PID=$! &&

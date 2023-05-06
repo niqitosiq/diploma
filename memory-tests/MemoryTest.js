@@ -56,13 +56,13 @@ const divisionNestedFields = (first, divider) => {
 };
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: 'new' });
+  const browser = await puppeteer.launch({ headless: false });
 
   const results = [];
 
   const page = await browser.newPage();
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 2; i++) {
     await page.goto(url, {
       waitUntil: 'networkidle0',
     });
