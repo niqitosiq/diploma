@@ -4,10 +4,8 @@ import path from 'path';
 import puppeteerProfile from './perfTests.js';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
-import process from 'child_process';
 import currentProcess from 'node:process';
 import { allActionsUserStory } from './userStories.js';
-import { log } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

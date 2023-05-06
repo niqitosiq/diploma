@@ -8,3 +8,4 @@ secondCommit=$(git rev-parse HEAD);
 node ../memory-tests/MemoryTest.js $secondCommit
 
 cd ../memory-tests && python3 createGraphs.py $firstCommit $secondCommit
+

@@ -4,12 +4,14 @@ import sys
 import matplotlib.pyplot as plt
 import os 
 from subprocess import call
+import os
+
 
 from dominate import document
 from dominate.tags import *
 
 
-def create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName):
+def create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName, firstCommitHash, secondCommitHash):
     before_optimization_scores = before_optimization_data['lhrResults']['lhrScores']
     after_optimization_scores = after_optimization_data['lhrResults']['lhrScores']
 
@@ -22,8 +24,8 @@ def create_lighthouse_chart(before_optimization_data, after_optimization_data, d
     x_scores = range(n)
 
     fig, ax = plt.subplots()
-    ax.bar([i - width / 2 for i in x_scores], before_scores, width, label='До оптимизации')
-    ax.bar([i + width / 2 for i in x_scores], after_scores, width, label='После оптимизации')
+    ax.bar([i - width / 2 for i in x_scores], before_scores, width, label=firstCommitHash)
+    ax.bar([i + width / 2 for i in x_scores], after_scores, width, label=secondCommitHash)
 
     for i, (before, after) in enumerate(zip(before_scores, after_scores)):
         percent_change = ((after - before) / before) * 100
@@ -40,7 +42,7 @@ def create_lighthouse_chart(before_optimization_data, after_optimization_data, d
     plt.savefig(directoryName + 'lighthouse_chart.jpeg')
 
 
-def create_timings_bar_chart(before_optimization_data, after_optimization_data, directoryName):
+def create_timings_bar_chart(before_optimization_data, after_optimization_data, directoryName, firstCommitHash, secondCommitHash):
     before_optimization_heap = [result['heap'] for result in before_optimization_data['averageStoryResults']]
     after_optimization_heap = [result['heap'] for result in after_optimization_data['averageStoryResults']]
     before_optimization_titles = [result.get('title', f"Index {i}") for i, result in enumerate(before_optimization_data['averageStoryResults'])]
@@ -74,8 +76,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     width = 0.3
 
     fig, ax = plt.subplots()
-    ax.bar([i - width / 2 for i in x], before_optimization_means, width, label='До оптимизации')
-    ax.bar([i + width / 2 for i in x], after_optimization_means, width, label='После оптимизации')
+    ax.bar([i - width / 2 for i in x], before_optimization_means, width, label=firstCommitHash)
+    ax.bar([i + width / 2 for i in x], after_optimization_means, width, label=secondCommitHash)
 
     for i, (before, after) in enumerate(zip(before_optimization_means, after_optimization_means)):
         percent_change = ((after - before) / before) * 100
@@ -90,8 +92,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     plt.savefig(directoryName + 'timings_chart.jpeg')
 
     fig2, ax2 = plt.subplots()
-    ax2.bar([i - width / 2 for i in x_heap], before_optimization_heap, width, label='До оптимизации')
-    ax2.bar([i + width / 2 for i in x_heap], after_optimization_heap, width, label='После оптимизации')
+    ax2.bar([i - width / 2 for i in x_heap], before_optimization_heap, width, label=firstCommitHash)
+    ax2.bar([i + width / 2 for i in x_heap], after_optimization_heap, width, label=secondCommitHash)
 
     for i, (before, after) in enumerate(zip(before_optimization_heap, after_optimization_heap)):
         percent_change = ((after - before) / before) * 100
@@ -117,8 +119,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     x_nodes = range(n)
 
     fig3, ax3 = plt.subplots()
-    ax3.bar([i - width / 2 for i in x_nodes], before_optimization_nodes, width, label='До оптимизации')
-    ax3.bar([i + width / 2 for i in x_nodes], after_optimization_nodes, width, label='После оптимизации')
+    ax3.bar([i - width / 2 for i in x_nodes], before_optimization_nodes, width, label=firstCommitHash)
+    ax3.bar([i + width / 2 for i in x_nodes], after_optimization_nodes, width, label=secondCommitHash)
 
     for i, (before, after) in enumerate(zip(before_optimization_nodes, after_optimization_nodes)):
         percent_change = ((after - before) / before) * 100
@@ -142,8 +144,8 @@ def create_timings_bar_chart(before_optimization_data, after_optimization_data, 
     x_task_duration = range(n)
 
     fig4, ax4 = plt.subplots()
-    ax4.bar([i - width / 2 for i in x_task_duration], before_optimization_task_duration, width, label='До оптимизации')
-    ax4.bar([i + width / 2 for i in x_task_duration], after_optimization_task_duration, width, label='После оптимизации')
+    ax4.bar([i - width / 2 for i in x_task_duration], before_optimization_task_duration, width, label=firstCommitHash)
+    ax4.bar([i + width / 2 for i in x_task_duration], after_optimization_task_duration, width, label=secondCommitHash)
 
     for i, (before, after) in enumerate(zip(before_optimization_task_duration, after_optimization_task_duration)):
         percent_change = ((after - before) / before) * 100
@@ -185,27 +187,37 @@ def main():
     with open(after_optimization_file, 'r') as f:
         after_optimization_data = json.load(f)
 
-    create_timings_bar_chart(before_optimization_data, after_optimization_data, directoryName)
-    create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName)
+    create_timings_bar_chart(before_optimization_data, after_optimization_data, directoryName, firstCommitHash, secondCommitHash)
+    create_lighthouse_chart(before_optimization_data, after_optimization_data, directoryName, firstCommitHash, secondCommitHash)
 
 
     codeComparingLink = 'https://github.com/niqitosiq/diploma/compare/' + firstCommitHash + '..' + secondCommitHash
 
-    with document(title='Photos') as doc:
-        h1('Graphics')
-        a('Code Comparing', href=codeComparingLink)
-        div(img(src='./heap_chart.jpeg'), _class='photo')
-        div(img(src='./nodes_chart.jpeg'), _class='photo')
-        div(img(src='./lighthouse_chart.jpeg'), _class='photo')
-        div(img(src='./task_duration_chart.jpeg'), _class='photo')
-        div(img(src='./timings_chart.jpeg'), _class='photo')
+    with document(title='Отчет ' + firstCommitHash  + '-' + secondCommitHash, style="font-family: Arial;") as doc:
+        
+        with div(style="width: 100%; display: flex; flex-wrap: wrap"):
+            h1('Сравнение производительности для ' + firstCommitHash  + '-' + secondCommitHash)
+
+            with div(style="min-width: 400px; width: 100%; min-height: 300px;"):
+                div(
+                    a('Code Comparing', href=codeComparingLink)
+                )
+                iframe(src="./git-diffs.html", width="100%", height="100%")
+
+            with div(width="100%", style="min-width: 300px; width:100%; margin-top: 60px;"):
+                img(src='./heap_chart.jpeg', width="100%")
+                img(src='./task_duration_chart.jpeg', width="100%")
+                img(src='./lighthouse_chart.jpeg', width="100%")
+                img(src='./timings_chart.jpeg', width="100%")
+                img(src='./nodes_chart.jpeg', width="100%")
 
 
     with open(directoryName + 'gallery.html', 'w') as f:
         f.write(doc.render())
 
     call(["open", directoryName])
-
+    print("git diff " + firstCommitHash + " " + secondCommitHash + " --color-words --no-index -p ../my-app/src > " + directoryName + "git-diffs.txt")
+    os.system("git diff  --color-words " + firstCommitHash + " " + secondCommitHash + " -p ../my-app/src | /tmp/ansi2html.sh > " + directoryName + "git-diffs.html")
 
 if __name__ == '__main__':
     main()
