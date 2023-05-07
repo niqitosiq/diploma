@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import axios from 'axios';
 import Locations from './components/Locations';
 import UserList from './components/UserList';
@@ -13,7 +13,7 @@ function App() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [fetchingInterval, setFetchingInterval] = useState(null);
+  const fetchingInterval = useRef(null);
   const fetchUsers = async () => {
     const response = await axios.get('http://localhost:3001/users');
     setUsers(response.data);
@@ -22,16 +22,14 @@ function App() {
 
   const startFetchingUsers = () => {
     fetchUsers();
-    setFetchingInterval(
-      setInterval(() => {
-        fetchUsers();
-      }, 40000),
-    );
+    fetchingInterval.current = setInterval(() => {
+      fetchUsers();
+    }, 40000);
   };
 
   const stopFetchingUsers = () => {
-    clearInterval(fetchingInterval);
-    setFetchingInterval(null);
+    clearInterval(fetchingInterval.current);
+    fetchingInterval.current = null;
   };
 
   useEffect(() => {
