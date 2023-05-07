@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import Locations from './components/Locations';
 import UserList from './components/UserList';
@@ -39,9 +39,9 @@ function App() {
     return stopFetchingUsers;
   }, []);
 
-  const filteredUsers = users.filter(
-    (user) => !searchQuery.length || user.name.includes(searchQuery),
-  );
+  const filteredUsers = useMemo(() => {
+    return users.filter((user) => !searchQuery.length || user.name.includes(searchQuery));
+  }, [users, searchQuery]);
 
   if (loading) {
     return <div>Loading...</div>;
