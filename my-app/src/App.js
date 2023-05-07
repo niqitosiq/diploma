@@ -47,6 +47,8 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  const closeUserDetails = () => setSelectedUser(null);
+
   return (
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -63,7 +65,7 @@ function App() {
 
       <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} />
 
-      {selectedUser && <UserDetails user={selectedUser} onClose={() => setSelectedUser(null)} />}
+      {selectedUser && <UserDetails user={selectedUser} onClose={closeUserDetails} />}
     </div>
   );
 }
