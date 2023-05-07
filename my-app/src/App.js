@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import axios from 'axios';
 import Locations from './components/Locations';
 import UserList from './components/UserList';
@@ -41,11 +41,11 @@ function App() {
     return users.filter((user) => !searchQuery.length || user.name.includes(searchQuery));
   }, [users, searchQuery]);
 
+  const closeUserDetails = useCallback(() => setSelectedUser(null), []);
+
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  const closeUserDetails = () => setSelectedUser(null);
 
   return (
     <div>
