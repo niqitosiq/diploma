@@ -48,15 +48,14 @@ function App() {
   }
 
   const closeUserDetails = () => setSelectedUser(null);
-  const updateSelectedUser = (selectedUser) => setSelectedUser(selectedUser);
 
   return (
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <Locations users={filteredUsers} onMarkerClick={updateSelectedUser} />
+      <Locations users={filteredUsers} onMarkerClick={setSelectedUser} />
 
-      <UserList users={filteredUsers} onUserSelect={updateSelectedUser} />
+      <UserList users={filteredUsers} onUserSelect={setSelectedUser} />
 
       <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} />
 
