@@ -62,7 +62,7 @@ const divisionNestedFields = (first, divider) => {
 
   const page = await browser.newPage();
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 19; i++) {
     await page.goto(url, {
       waitUntil: 'networkidle0',
     });

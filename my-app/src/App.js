@@ -25,7 +25,7 @@ function App() {
     setFetchingInterval(
       setInterval(() => {
         fetchUsers();
-      }, 15000),
+      }, 40000),
     );
   };
 
@@ -47,20 +47,23 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  const closeUserDetails = () => setSelectedUser(null);
-  const updateSelectedUser = (selectedUser) => setSelectedUser(selectedUser);
-
   return (
     <div>
       <SearchUser searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-      <Locations users={filteredUsers} onMarkerClick={updateSelectedUser} />
+      <Locations
+        users={filteredUsers}
+        onMarkerClick={(selectedUser) => setSelectedUser(selectedUser)}
+      />
 
-      <UserList users={filteredUsers} onUserSelect={updateSelectedUser} />
+      <UserList
+        users={filteredUsers}
+        onUserSelect={(selectedUser) => setSelectedUser(selectedUser)}
+      />
 
       <Statistic users={filteredUsers} isPressedToBottom={!selectedUser} />
 
-      {selectedUser && <UserDetails user={selectedUser} onClose={closeUserDetails} />}
+      {selectedUser && <UserDetails user={selectedUser} onClose={() => setSelectedUser(null)} />}
     </div>
   );
 }
