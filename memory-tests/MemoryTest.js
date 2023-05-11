@@ -62,7 +62,20 @@ const divisionNestedFields = (first, divider) => {
 
   const page = await browser.newPage();
 
-  for (let i = 0; i < 19; i++) {
+  const pageSession = await page.target().createCDPSession();
+  await page.setCacheEnabled(false);
+  await pageSession.send('Network.setCacheDisabled', { cacheDisabled: true });
+  await pageSession.send('Network.enable');
+  await pageSession.send('Network.emulateNetworkConditions', {
+    offline: false,
+    downloadThroughput: (10 * 1024 * 1024) / 8,
+    uploadThroughput: (10 * 1024 * 1024) / 8,
+    latency: 2000,
+  });
+
+  // await pageSession.send('Emulation.setCPUThrottlingRate', { rate: 2 });
+
+  for (let i = 0; i < 2; i++) {
     await page.goto(url, {
       waitUntil: 'networkidle0',
     });

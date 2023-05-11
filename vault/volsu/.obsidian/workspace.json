@@ -85,7 +85,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Заметки.md",
+                "file": "5. Методы оптимизации React.md",
                 "mode": "source",
                 "source": false
               }
@@ -174,7 +174,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Заметки.md",
+                "file": "5. Методы оптимизации React.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -191,7 +191,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Заметки.md",
+                "file": "5. Методы оптимизации React.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -214,7 +214,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Заметки.md"
+                "file": "5. Методы оптимизации React.md"
               }
             }
           }
@@ -237,8 +237,8 @@
   },
   "active": "87e55d5b15401792",
   "lastOpenFiles": [
-    "5. Методы оптимизации React.md",
     "Заметки.md",
+    "5. Методы оптимизации React.md",
     "Untitled.md",
     "Untitled 1.md",
     "6. Применение методов оптимизации на практике.md",
